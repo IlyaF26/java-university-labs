@@ -25,9 +25,36 @@ public class ContainerOfIntegers {
             head = new Node(data);
         }
         else {
-            Node newInt = new Node(data);
-            newInt.next = head;
-            head = newInt;
+            Node newNode = new Node(data);
+            newNode.next = head;
+            head = newNode;
+            size++;
+        }
+    }
+
+    // добавление в список по индексу
+    public void addByIndex(int data, int index) {
+        // выбрасывает ошибку если индекс меньше 0 или больше размера контейнера
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index out of bound exception\nsize: " + size + ", index: " + index);
+        }
+
+        // добавляем в голову
+        if (index == 0) {
+            this.add(data);
+        }
+        else {
+            int currInd = 0;
+            Node curr = head;
+            while (currInd != index) {
+                curr = curr.next;
+                currInd++;
+            }
+
+            Node newNode = new Node(data);
+            newNode.next = curr.next;
+            curr.next = newNode;
+
             size++;
         }
     }
