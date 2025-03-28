@@ -1,25 +1,66 @@
 package org.example;
 
+/**
+ * Класс для хранения целых чисел в виде односвязного списка.
+ * Поддерживает добавление, извлечение и удаление элементов.
+ *
+ * @author Фомин Илья
+ */
 public class ContainerOfIntegers {
+    /** Первый узел списка. */
     private Node head;
+
+    /** Размер контейнера. */
     private int size;
 
+    /**
+     * Внутренний класс, представляющий узел списка.
+     */
     private static class Node {
+        /** Значение узла. */
         int data;
+
+        /** Ссылка на следующий узел. */
         Node next;
 
+        /**
+         * Конструктор внутреннего класса.
+         * Создает новый узел.
+         *
+         * @param data целое число для хранения в узле
+         */
         Node(int data) {
             this.data = data;
             this.next = null;
         }
     }
 
+    /**
+     * Конструктор класса.
+     * Создает пустой контейнер.
+     */
     public ContainerOfIntegers() {
         head = null;
         size = 0;
     }
 
-    // добавление в начало списка
+    /**
+     * Проверяет валидность индекса.
+     *
+     * @param index проверяемый индекс
+     * @throws IndexOutOfBoundsException если индекс отрицательный или больше размера контейнера
+     */
+    private void validateIndex(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index out of bound exception\nsize: " + size + ", index: " + index);
+        }
+    }
+
+    /**
+     * Добавляет число в начало списка.
+     *
+     * @param data целое число для добавления
+     */
     public void add(int data) {
         if (head == null) {
             head = new Node(data);
@@ -32,14 +73,16 @@ public class ContainerOfIntegers {
         }
     }
 
-    // добавление в список по индексу
+    /**
+     * Добавляет число в указанную позицию.
+     *
+     * @param data целое число для добавления
+     * @param index позиция, куда вставляется элемент
+     */
     public void addByIndex(int data, int index) {
-        // выбрасывает ошибку если индекс меньше 0 или больше размера контейнера
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index out of bound exception\nsize: " + size + ", index: " + index);
-        }
+        validateIndex(index);
 
-        // добавляем в голову
+        // добавляет в голову
         if (index == 0) {
             this.add(data);
         }
@@ -59,12 +102,14 @@ public class ContainerOfIntegers {
         }
     }
 
-    // извлечение элемента по индексу
+    /**
+     * Возвращение значение элемента по индексу.
+     *
+     * @param index позиция элемента
+     * @return значение элемента
+     */
     public int getData(int index) {
-        // выбрасывает ошибку если индекс меньше 0 или больше размера контейнера
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index out of bound exception\nsize: " + size + ", index: " + index);
-        }
+        validateIndex(index);
 
         int currInd = 0;
         Node curr = head;
@@ -76,18 +121,19 @@ public class ContainerOfIntegers {
         return curr.data;
     }
 
-    // удаление элемента
+    /**
+     * Удаляет элемент по индексу.
+     *
+     * @param index позиция удаляемого элемента
+     */
     public void remove(int index) {
-        // выбрасывает ошибку если индекс меньше 0 или больше размера контейнера
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index out of bound exception\nsize: " + size + ", index: " + index);
-        }
+        validateIndex(index);
 
-        // удаление головы
+        // удаляет с головы
         if (index == 0) {
             head.next = head.next.next;
         }
-        // удаление середины или конца
+        // удаляет с середины или конца
         else {
             int currInd = 1;
             Node curr = head.next, prev = head;
