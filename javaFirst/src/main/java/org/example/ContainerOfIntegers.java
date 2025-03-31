@@ -41,7 +41,7 @@ public class ContainerOfIntegers {
      */
     public ContainerOfIntegers() {
         head = null;
-        size = 0;
+        size = -1;
     }
 
     /**
@@ -57,20 +57,24 @@ public class ContainerOfIntegers {
     }
 
     /**
+     * Возвращает размер контейнера
+     *
+     * @return размер контейнера
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    /**
      * Добавляет число в начало списка.
      *
      * @param data целое число для добавления
      */
     public void add(int data) {
-        if (head == null) {
-            head = new Node(data);
-        }
-        else {
-            Node newNode = new Node(data);
-            newNode.next = head;
-            head = newNode;
-            size++;
-        }
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
     }
 
     /**
@@ -87,7 +91,7 @@ public class ContainerOfIntegers {
             this.add(data);
         }
         else {
-            int currInd = 0;
+            int currInd = 1;
             Node curr = head;
             while (currInd != index) {
                 curr = curr.next;
@@ -97,9 +101,9 @@ public class ContainerOfIntegers {
             Node newNode = new Node(data);
             newNode.next = curr.next;
             curr.next = newNode;
-
-            size++;
         }
+
+        size++;
     }
 
     /**
@@ -131,7 +135,7 @@ public class ContainerOfIntegers {
 
         // удаляет с головы
         if (index == 0) {
-            head.next = head.next.next;
+            head = head.next;
         }
         // удаляет с середины или конца
         else {
